@@ -2,43 +2,51 @@
 
 https://www.isca-speech.org/archive/pdfs/interspeech_2022/kishiyama22_interspeech.pdf
 
-## Prerequisites
+# README
 
-- Git
-- Docker
+- Create a model for Tokyo dialect and Kinki dialect.
+    - two patterns of (3x3) with labels and features as factors.
+- Give each model a speech signal
+- make predictions
+- visualize
 
-## How to replicate the results
+Label factors (based on RLE)
 
-Clone this repository
+- RLE
+- RLE + Delta
 
-```shell
-$ git clone git@github.com:kishiyamat/interspeech-2022-replication.git
-$ cd interspeech-2022-replication
-```
+Feature Factor
 
-Run the experiments
+- pitch (based on RLE)
+- pitch:delta
+- delta
 
-```shell
-$ # Local terminal 1 @ interspeech-2022-replication
-$ docker build -t kishiyamat/interspeech-2022-replication .
-$ docker run -it --rm kishiyamat/interspeech-2022-replication bash
-$ # Docker terminal
-$ cd interspeech-2022-replication
-$ make exp1     # dupoux et al. 1999
-$ make exp2     # dupoux et al. 2011
-$ # keep docker running
-```
+Language model
 
-Copy the results
+- Tokyo
+- Kinki
 
-```shell
-$ # Local terminal 2 @ interspeech-2022-replication
-$ docker ps
-CONTAINER ID        IMAGE                                     COMMAND             CREATED             STATUS              PORTS               NAMES
-7609212cd78a        kishiyamat/interspeech-2022-replication   "bash"              9 minutes ago       Up 9 minutes        8787/tcp            sleepy_bell
-$ # Use CONTAINER ID to find results
-$ docker cp 7609212cd78a:/opt/app/interspeech-2022-replication/artifact/. artifact/
-```
+Experiment
+
+- Test the inference by giving test speech (tone-illusory speech such as `L_H`).
+
+## Supplementation
+
+### Parameters to be passed to the model
+
+HSMM itself is formed by the distribution of initial probability, transition probability, ejection probability, and persistence probability.
+distributions of initial probability, transition probability, ejection probability, and persistence probability, each of which is necessary.
+In addition, the injection probability is divided into the Gaussian case and the MultivariateGaussian case.
+In addition, since the parameters required for the injection probability are different for the Gaussian case and the Multivariate Gaussian case, the following parameters are required for the HSMM
+[emmition.py](https://github.com/kishiyamat/hsmmlearn/blob/master/hsmmlearn/emissions.py)
+for the parameters required for the Gaussian and MultivarieteGaussian cases.
+The explanation of each is given below.
+
+In the Gaussian case
+`GaussianEmissions`.
+
+In the case of MultivariateGaussian, use
+`MultivariateGaussianEmissions` in the case of Gaussian.
 
 ## Citation
 
