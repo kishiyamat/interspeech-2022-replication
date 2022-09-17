@@ -1,0 +1,32 @@
+digraph Tree {
+node [shape=box, style="filled", color="black"] ;
+0 [label="semitone <= 1.982\nsamples = 1032\nvalue = [190, 259, 192, 391]\nclass = L2", fillcolor="#f8ddfb"] ;
+1 [label="semitone <= -1.913\nsamples = 940\nvalue = [112, 251, 192, 385]\nclass = L2", fillcolor="#f7d8fa"] ;
+0 -> 1 [labeldistance=2.5, labelangle=45, headlabel="True"] ;
+2 [label="semitone <= -8.875\nsamples = 146\nvalue = [0, 1, 100, 45]\nclass = L1", fillcolor="#93caf1"] ;
+1 -> 2 ;
+3 [label="samples = 24\nvalue = [0, 0, 23, 1]\nclass = L1", fillcolor="#42a1e6"] ;
+2 -> 3 ;
+4 [label="samples = 122\nvalue = [0, 1, 77, 44]\nclass = L1", fillcolor="#abd6f4"] ;
+2 -> 4 ;
+5 [label="semitone <= -0.059\nsamples = 794\nvalue = [112, 250, 92, 340]\nclass = L2", fillcolor="#f8defb"] ;
+1 -> 5 ;
+6 [label="samples = 537\nvalue = [69, 115, 89, 264]\nclass = L2", fillcolor="#f1b9f6"] ;
+5 -> 6 ;
+7 [label="samples = 257\nvalue = [43, 135, 3, 76]\nclass = H2", fillcolor="#c3f7be"] ;
+5 -> 7 ;
+8 [label="semitone <= 2.624\nsamples = 92\nvalue = [78, 8, 0, 6]\nclass = H1", fillcolor="#e9965a"] ;
+0 -> 8 [labeldistance=2.5, labelangle=-45, headlabel="False"] ;
+9 [label="semitone <= 2.304\nsamples = 20\nvalue = [10, 7, 0, 3]\nclass = H1", fillcolor="#f9e2d1"] ;
+8 -> 9 ;
+10 [label="samples = 13\nvalue = [9, 3, 0, 1]\nclass = H1", fillcolor="#efb388"] ;
+9 -> 10 ;
+11 [label="samples = 7\nvalue = [1, 4, 0, 2]\nclass = H2", fillcolor="#b5f5b0"] ;
+9 -> 11 ;
+12 [label="semitone <= 3.197\nsamples = 72\nvalue = [68, 1, 0, 3]\nclass = H1", fillcolor="#e78844"] ;
+8 -> 12 ;
+13 [label="samples = 19\nvalue = [16, 1, 0, 2]\nclass = H1", fillcolor="#ea975c"] ;
+12 -> 13 ;
+14 [label="samples = 53\nvalue = [52, 0, 0, 1]\nclass = H1", fillcolor="#e6833d"] ;
+12 -> 14 ;
+}
