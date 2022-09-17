@@ -1,0 +1,71 @@
+---
+title: "04_stats"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(ggplot2)
+library(readr)
+library(stringr)
+library(tidyr)
+```
+
+```{r}
+results <- read_csv("results.csv")
+```
+
+```{r}
+results_success <- results %>%
+  group_by(
+    use_transition, use_pi,
+  ) %>%
+  summarise(success_rate = round(mean(n_success), 2)) %>%
+  ungroup()
+
+results_mean <- results %>%
+  group_by(
+    use_transition, use_pi,
+    tokyo_kinki_ratio, pitch, phoneme, subj_id,
+  ) %>%
+  summarise(tokyo_pref = mean(tokyo_pref)) %>%
+  ungroup() %>%
+  left_join(results_success) %>%
+  mutate(
+    use_pi = case_when(
+      use_pi ~ "use pi",
+      !use_pi ~ "w/o pi"
+    ),
+    use_transition = case_when(
+      use_transition ~ "use tmat",
+      !use_transition ~ "w/o tmat"
+    ),
+  )
+
+results_mean
+```
+
+
+```{r}
+g <- results_mean %>%
+  ggplot(aes(x = as.factor(tokyo_kinki_ratio),
+             y = tokyo_pref,
+             fill = as.ordered(success_rate))) +
+  facet_grid(use_pi ~ use_transition) +
+  geom_violin() +
+  ylim(-1, 1) +
+  theme_bw() +
+  theme(legend.position = "top") +
+  labs(
+    x = "Tokyo-residence ratio",
+    y = "Tokyo-pattern preference",
+    fill = "Success rate"
+  ) +
+  theme(legend.key.size = unit(0.3, "cm")) + 
+  theme( text = element_text(family = "Times") ) +
+  theme(text = element_text(size = 10))
+
+g
+ggsave(paste0("results_simulation.pdf"), unit = "cm", width = 7, height = 5)
+```

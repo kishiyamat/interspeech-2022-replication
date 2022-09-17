@@ -2,8 +2,6 @@
 
 https://www.isca-speech.org/archive/pdfs/interspeech_2022/kishiyama22_interspeech.pdf
 
-# README
-
 - Create a model for Tokyo dialect and Kinki dialect.
     - two patterns of (3x3) with labels and features as factors.
 - Give each model a speech signal
@@ -29,6 +27,10 @@ Language model
 Experiment
 
 - Test the inference by giving test speech (tone-illusory speech such as `L_H`).
+
+## Workflow
+
+- place wav file to 
 
 ## Supplementation
 
